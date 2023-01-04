@@ -14,8 +14,8 @@ void main(List<String> arguments) async {
       db: 'baby_bank',
       password: 'root'));
 
-  var result =
-      await conn.query('insert into tb_origin (name) values (?)', ['Tia Anne']);
+  var result = await conn
+      .query('insert into tb_origin (name) values (?)', ['Tia Maria']);
   print('Inserted row id=${result.insertId}');
 
   var results = await conn.query('select * from tb_origin');
