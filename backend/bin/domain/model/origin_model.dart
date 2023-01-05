@@ -16,7 +16,7 @@ class OriginModel {
     };
   }
 
-  factory OriginModel.fromMap(Map<String, dynamic> map) {
+  factory OriginModel.fromMap(Map map) {
     return OriginModel.create(
       map['id']?.toInt() ?? 0,
       map['name'] ?? '',

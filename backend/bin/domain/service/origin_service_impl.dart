@@ -7,7 +7,7 @@ class OriginServiceImpl implements OriginService {
 
   OriginServiceImpl(this._originRepository);
   @override
-  List<OriginModel> getListOrigin() {
-    return _originRepository.findAllOrigin();
+  Future<List<OriginModel>> getListOrigin() async {
+    return await _originRepository.findAllOrigin();
   }
 }

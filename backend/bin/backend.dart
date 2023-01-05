@@ -6,11 +6,16 @@ import 'application/web/origin_controller.dart';
 import 'domain/port/input/origin_service.dart';
 import 'domain/port/output/origin_repository.dart';
 import 'domain/service/origin_service_impl.dart';
+import 'infra/database/db_configuration.dart';
+import 'infra/database/mysql_db_configuration.dart';
+import 'infra/database/origin_repository_ipml_db.dart';
 import 'infra/memory/origin_repository_impl.dart';
 
 void main(List<String> arguments) async {
-  OriginRepository _originRepository = OriginRepositoryIpml();
-  OriginService _originService = OriginServiceImpl(_originRepository);
+  DBConfiguration _db = MySqlDBConfiguration();
+  OriginRepository _originRepositoryDB = OriginRepositoryIpmlDB(_db);
+  OriginRepository _originRepositoryMemory = OriginRepositoryIpml();
+  OriginService _originService = OriginServiceImpl(_originRepositoryDB);
   OriginController _originController = OriginController(_originService);
 
   _originController.getAll();
@@ -34,6 +39,8 @@ void main(List<String> arguments) async {
   // for (var row in results) {
   //   print('id: ${row[0]} Name: ${row[1]}}');
   // }
+
+  // print(results.runtimeType);
 }
 
 // inicia o docker,  workbench, run backend
