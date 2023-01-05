@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import '../../domain/port/input/origin_service.dart';
+import '../../domain/port/input/service.dart';
 
 class OriginController {
   //post and get
-  final OriginService _originService;
+  final Service _originService;
 
   OriginController(this._originService);
   void getAll() async {

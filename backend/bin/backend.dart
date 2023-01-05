@@ -3,7 +3,8 @@ import 'package:shelf/shelf_io.dart';
 import 'package:mysql1/mysql1.dart';
 
 import 'application/web/origin_controller.dart';
-import 'domain/port/input/origin_service.dart';
+import 'domain/model/origin_model.dart';
+import 'domain/port/input/service.dart';
 import 'domain/port/output/origin_repository.dart';
 import 'domain/service/origin_service_impl.dart';
 import 'infra/database/db_configuration.dart';
@@ -13,9 +14,9 @@ import 'infra/memory/origin_repository_impl.dart';
 
 void main(List<String> arguments) async {
   DBConfiguration _db = MySqlDBConfiguration();
-  OriginRepository _originRepositoryDB = OriginRepositoryIpmlDB(_db);
-  OriginRepository _originRepositoryMemory = OriginRepositoryIpml();
-  OriginService _originService = OriginServiceImpl(_originRepositoryDB);
+  Repository<OriginModel> _originRepositoryDB = OriginRepositoryIpmlDB(_db);
+  Repository<OriginModel> _originRepositoryMemory = OriginRepositoryIpml();
+  Service<OriginModel> _originService = OriginServiceImpl(_originRepositoryDB);
   OriginController _originController = OriginController(_originService);
 
   _originController.getAll();

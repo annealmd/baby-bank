@@ -2,7 +2,7 @@ import '../../domain/model/origin_model.dart';
 import '../../domain/port/output/origin_repository.dart';
 import 'db_configuration.dart';
 
-class OriginRepositoryIpmlDB implements OriginRepository {
+class OriginRepositoryIpmlDB implements Repository<OriginModel> {
   final DBConfiguration _dbCall;
 
   OriginRepositoryIpmlDB(this._dbCall);
