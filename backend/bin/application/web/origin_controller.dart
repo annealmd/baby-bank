@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import '../../domain/port/input/service.dart';
 
 class OriginController {

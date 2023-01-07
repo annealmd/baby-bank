@@ -18,7 +18,9 @@ class DependencyInjector {
 
   T get<T extends Object>() {
     final instance = _instanceMap[T]?.getInstance();
+
     if (instance != null && instance is T) return instance;
+
     throw Exception('[ERROR] -> instance ${T.toString()} not found');
   }
 
@@ -42,6 +44,6 @@ class _InstanceGenerator<T> {
       _instance = _instanceCreator();
       _isFirstGet = false;
     }
-    return _instance ?? _instanceCreator();
+    return (_instance != null) ? _instance : _instanceCreator();
   }
 }

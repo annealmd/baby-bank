@@ -1,5 +1,5 @@
 import '../../domain/model/origin_model.dart';
-import '../../domain/port/output/origin_repository.dart';
+import '../../domain/port/output/repository.dart';
 import 'db_configuration.dart';
 
 class OriginRepositoryIpmlDB implements Repository<OriginModel> {
