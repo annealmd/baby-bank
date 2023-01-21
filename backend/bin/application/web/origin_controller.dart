@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:shelf/shelf.dart';
+import 'package:shelf_router/shelf_router.dart';
+
 import '../../domain/model/origin_model.dart';
 import '../../domain/port/input/service.dart';
 
@@ -18,5 +23,17 @@ class OriginController {
 
   Future<bool> deleteOrigin(int id) async {
     return await _originService.deleteItem(id);
+  }
+
+  Handler get handler {
+    final router = Router();
+
+    router.get('/origin', (Request req) async {
+      var getList = await _originService.getList() as List<OriginModel>;
+      List jsonOrigin = getList.map((e) => e.toJson()).toList();
+      return Response.ok('Bem vindo $jsonOrigin');
+    });
+
+    return router;
   }
 }
