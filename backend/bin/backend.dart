@@ -1,20 +1,21 @@
-import 'package:shelf/shelf.dart';
-import 'package:shelf/shelf_io.dart' as shelf_io;
-
 import 'application/web/origin_controller.dart';
+import 'core/custom_env.dart';
 import 'core/injects.dart';
+import 'infra/service/custom_server.dart';
 
 void main(List<String> arguments) async {
   final di = Injects.initialize();
   //await di.get<OriginController>().deleteOrigin(8);
-  di.get<OriginController>().getAll();
-  print(
-      '\n rows affected ${await di.get<OriginController>().addOrigin('flor')}');
-  di.get<OriginController>().getAll();
+  di.get<OriginController>().getAll(3);
+  // print(
+  //     '\n rows affected ${await di.get<OriginController>().addOrigin('gym', 3)}');
+  // di.get<OriginController>().getAll(3);
 
   // server
-  await shelf_io.serve(di.get<OriginController>().handler, 'localhost', 8080);
-  print('servidor iniciado na http://localhost:8080');
+  await CustomServer.initialize(
+      address: await CustomEnv.get<String>(key: 'server_address'),
+      port: await CustomEnv.get<int>(key: 'server_port'),
+      handler: di.get<OriginController>().handler);
 }
 
 

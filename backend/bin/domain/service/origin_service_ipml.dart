@@ -7,13 +7,13 @@ class OriginServiceIpml implements Service<OriginModel> {
 
   OriginServiceIpml(this._originRepository);
   @override
-  Future<List<OriginModel>> getList() async {
-    return await _originRepository.findAll();
+  Future<List<OriginModel>> getList(int userId) async {
+    return await _originRepository.findAll(userId);
   }
 
   @override
-  Future<bool> addItem(OriginModel item) async {
-    return await _originRepository.create(item);
+  Future<bool> addItem(OriginModel item, int userId) async {
+    return await _originRepository.create(item, userId);
   }
 
   @override

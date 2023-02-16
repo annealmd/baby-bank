@@ -11,14 +11,14 @@ class OriginController {
   final Service _originService;
 
   OriginController(this._originService);
-  void getAll() async {
-    var originList = await _originService.getList();
+  void getAll(int userId) async {
+    var originList = await _originService.getList(userId);
     originList.forEach(print);
   }
 
-  Future<bool> addOrigin(String name) async {
+  Future<bool> addOrigin(String name, int userId) async {
     var item = OriginModel()..name = name;
-    return await _originService.addItem(item);
+    return await _originService.addItem(item, userId);
   }
 
   Future<bool> deleteOrigin(int id) async {
@@ -29,9 +29,10 @@ class OriginController {
     final router = Router();
 
     router.get('/origin', (Request req) async {
-      var getList = await _originService.getList() as List<OriginModel>;
+      var getList = await _originService.getList(3) as List<OriginModel>;
       List jsonOrigin = getList.map((e) => e.toJson()).toList();
-      return Response.ok('Bem vindo $jsonOrigin');
+      print('Here we are $jsonOrigin');
+      return Response.ok(jsonOrigin);
     });
 
     return router;

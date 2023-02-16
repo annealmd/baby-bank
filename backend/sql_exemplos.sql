@@ -76,3 +76,6 @@ from tb_expenses e
 INNER JOIN tb_user u
 ON u.id = e.idUser
 GROUP BY e.idUser
+-- json
+SELECT json_object('id', id, 'name', name, 'idUser', idUser) 
+FROM tb_origin WHERE idUser = 3

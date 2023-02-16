@@ -7,21 +7,21 @@ class OriginRepositoryIpmlDB implements Repository<OriginModel> {
 
   OriginRepositoryIpmlDB(this._dbCall);
   @override
-  Future<List<OriginModel>> findAll() async {
-    String sql = 'SELECT * FROM tb_origin ORDER BY id ASC';
-    var result = await _dbCall.execQuery(sql);
+  Future<List<OriginModel>> findAll(int userId) async {
+    String sql = 'SELECT * FROM tb_origin WHERE idUser = ? ORDER BY id ASC';
+    var result = await _dbCall.execQuery(sql, [userId]);
     List<OriginModel> list = [];
     for (var row in result) {
-      //print('id: ${row[0]} Name: ${row[1]}}');
+      print('id: ${row[0]} Name: ${row[1]}');
       list.add(OriginModel.create(row[0], row[1]));
     }
     return list;
   }
 
   @override
-  Future<bool> create(OriginModel item) async {
-    final String sql = 'INSERT INTO tb_origin (name) VALUES (?)';
-    var result = await _dbCall.execQuery(sql, [item.name]);
+  Future<bool> create(OriginModel item, int userId) async {
+    final String sql = 'INSERT INTO tb_origin (name, idUser) VALUES (?, ?)';
+    var result = await _dbCall.execQuery(sql, [item.name, userId]);
     return result.affectedRows > 0;
   }
 
