@@ -28,11 +28,14 @@ class OriginController {
   Handler get handler {
     final router = Router();
 
-    router.get('/origin', (Request req) async {
+    router.get('/origin/list', (Request req) async {
       var getList = await _originService.getList(3) as List<OriginModel>;
       List jsonOrigin = getList.map((e) => e.toJson()).toList();
       print('Here we are $jsonOrigin');
-      return Response.ok(jsonOrigin);
+      return Response.ok(
+        jsonEncode(getList).replaceAll('\\', ''),
+        headers: {'content-type': 'application/json'},
+      );
     });
 
     return router;
