@@ -4,6 +4,7 @@ import 'application/web/origin_controller.dart';
 import 'core/custom_env.dart';
 import 'core/injects.dart';
 import 'infra/service/custom_server.dart';
+import 'infra/service/middleware_interception.dart';
 
 void main(List<String> arguments) async {
   final di = Injects.initialize();
@@ -11,8 +12,10 @@ void main(List<String> arguments) async {
   var cascadeHandler =
       Cascade().add(di.get<OriginController>().handler).handler;
 
-  var pipeHandler =
-      Pipeline().addMiddleware(logRequests()).addHandler(cascadeHandler);
+  var pipeHandler = Pipeline()
+      .addMiddleware(logRequests())
+      .addMiddleware(MiddlewareInterception().middlewareJson)
+      .addHandler(cascadeHandler);
 
   // server
   await CustomServer.initialize(

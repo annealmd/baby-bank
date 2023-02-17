@@ -20,12 +20,9 @@ class OriginController {
       String? idUser = req.url.queryParameters['idUser'];
       var getList =
           await _originService.getList(int.parse(idUser!)) as List<OriginModel>;
-      List jsonOrigin = getList.map((e) => e.toJson()).toList();
+      var jsonOrigin = getList.map((e) => e.toJson()).toList().toString();
       print('Here we are $jsonOrigin');
-      return Response.ok(
-        jsonEncode(getList).replaceAll('\\', ''),
-        headers: {'content-type': 'application/json'},
-      );
+      return Response.ok(jsonOrigin);
     });
 
     ///origin/add?idUser=3&name=luciana
