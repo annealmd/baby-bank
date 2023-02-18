@@ -1,5 +1,6 @@
 import 'package:shelf/shelf.dart';
 
+import 'application/web/login_controller.dart';
 import 'application/web/origin_controller.dart';
 import 'core/custom_env.dart';
 import 'core/injects.dart';
@@ -9,8 +10,10 @@ import 'infra/service/middleware_interception.dart';
 void main(List<String> arguments) async {
   final di = Injects.initialize();
 
-  var cascadeHandler =
-      Cascade().add(di.get<OriginController>().handler).handler;
+  var cascadeHandler = Cascade()
+      .add(di.get<OriginController>().handler)
+      .add(LoginController().handler)
+      .handler;
 
   var pipeHandler = Pipeline()
       .addMiddleware(logRequests())

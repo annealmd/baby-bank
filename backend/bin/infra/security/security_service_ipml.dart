@@ -1,3 +1,4 @@
+import '../../core/custom_env.dart';
 import 'security_service.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
@@ -7,8 +8,12 @@ class SercurityServiceIpml implements SecurityService<JWT> {
     var jwt = JWT(
       {
         'iat': DateTime.now().millisecondsSinceEpoch,
+        'userID': userID,
       },
     );
+    String key = await CustomEnv.get(key: 'jwt_key');
+    String token = jwt.sign(SecretKey(key));
+    return token;
   }
 
   @override
