@@ -9,6 +9,7 @@ class SercurityServiceIpml implements SecurityService<JWT> {
       {
         'iat': DateTime.now().millisecondsSinceEpoch,
         'userID': userID,
+        'roles': ['user']
       },
     );
     String key = await CustomEnv.get(key: 'jwt_key');
