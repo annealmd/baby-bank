@@ -20,6 +20,7 @@ void main(List<String> arguments) async {
       .addMiddleware(logRequests())
       .addMiddleware(MiddlewareInterception().middlewareJson)
       .addMiddleware(SercurityServiceIpml().authorization)
+      .addMiddleware(SercurityServiceIpml().verifyJWT)
       .addHandler(cascadeHandler);
 
   // server

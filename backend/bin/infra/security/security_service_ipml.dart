@@ -57,7 +57,16 @@ class SercurityServiceIpml implements SecurityService<JWT> {
     };
   }
 
+  //shortcut of above
   @override
-  // TODO: implement verifyJWT
-  Middleware get verifyJWT => throw UnimplementedError();
+  Middleware get verifyJWT {
+    return createMiddleware(
+      requestHandler: (Request req) {
+        if (req.context['jwt'] == null) {
+          return Response.forbidden('Not Authorized');
+        }
+        return null;
+      },
+    );
+  }
 }
