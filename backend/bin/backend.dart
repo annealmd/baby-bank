@@ -11,16 +11,21 @@ import 'infra/service/middleware_interception.dart';
 void main(List<String> arguments) async {
   final di = Injects.initialize();
 
+  var security = SercurityServiceIpml();
+
   var cascadeHandler = Cascade()
-      .add(di.get<OriginController>().handler)
-      .add(LoginController().handler)
+      .add(di.get<OriginController>().gethandler(
+        middlewares: [
+          security.authorization,
+          security.verifyJWT,
+        ],
+      ))
+      .add(LoginController().gethandler())
       .handler;
 
   var pipeHandler = Pipeline()
       .addMiddleware(logRequests())
       .addMiddleware(MiddlewareInterception().middlewareJson)
-      .addMiddleware(SercurityServiceIpml().authorization)
-      .addMiddleware(SercurityServiceIpml().verifyJWT)
       .addHandler(cascadeHandler);
 
   // server

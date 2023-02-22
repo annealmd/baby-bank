@@ -1,5 +1,4 @@
 import 'package:shelf/shelf.dart';
-import 'package:shelf/src/middleware.dart';
 
 import '../../core/custom_env.dart';
 import 'security_service.dart';

@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS `baby_bank`.`tb_origin` ;
 CREATE TABLE IF NOT EXISTS `baby_bank`.`tb_origin` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(20) NOT NULL,
-  `idUser` INT NOT NULL DEFAULT '',
+  `idUser` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_tb_origin_tb_user1_idx` (`idUser` ASC),
   CONSTRAINT `fk_tb_origin_tb_user1`

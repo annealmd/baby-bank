@@ -1,19 +1,19 @@
-import 'dart:convert';
-
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
+import 'controller.dart';
 import '../../domain/model/origin_model.dart';
 import '../../domain/port/input/service.dart';
 
-class OriginController {
+class OriginController extends Controller {
   //post and get
   final Service _originService;
 
   OriginController(this._originService);
 
-  Handler get handler {
-    final router = Router();
+  @override
+  Handler gethandler({List<Middleware>? middlewares, bool isSecurity = false}) {
+    Router router = Router();
 
     ///origin/list?idUser=3
     router.get('/origin/list', (Request req) async {
@@ -21,6 +21,7 @@ class OriginController {
       var getList =
           await _originService.getList(int.parse(idUser!)) as List<OriginModel>;
       var jsonOrigin = getList.map((e) => e.toJson()).toList().toString();
+
       print('Here we are $jsonOrigin');
       return Response.ok(jsonOrigin);
     });
@@ -47,6 +48,7 @@ class OriginController {
       return Response(result ? 200 : 400);
     });
 
-    return router;
+    return createHandler(
+        router: router, isSecurity: isSecurity, middlewares: middlewares);
   }
 }
