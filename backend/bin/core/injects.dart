@@ -1,3 +1,5 @@
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+
 import '../application/web/origin_controller.dart';
 import '../domain/model/origin_model.dart';
 import '../domain/port/input/service.dart';
@@ -6,6 +8,8 @@ import '../domain/service/origin_service_ipml.dart';
 import '../infra/database/db_configuration.dart';
 import '../infra/database/mysql_db_configuration.dart';
 import '../infra/database/origin_repository_ipml_db.dart';
+import '../infra/security/security_service.dart';
+import '../infra/security/security_service_ipml.dart';
 import 'dependency_injector.dart';
 
 class Injects {
@@ -16,6 +20,8 @@ class Injects {
     di.register<DBConfiguration>(() => MySqlDBConfiguration());
 
     //Origin
+    //Security
+    di.register<SecurityService>(() => SecurityServiceIpml());
     //Repository
     di.register<Repository<OriginModel>>(
         () => OriginRepositoryIpmlDB(di<DBConfiguration>()));

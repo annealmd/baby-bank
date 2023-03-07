@@ -4,23 +4,15 @@ import 'application/web/login_controller.dart';
 import 'application/web/origin_controller.dart';
 import 'core/custom_env.dart';
 import 'core/injects.dart';
-import 'infra/security/security_service_ipml.dart';
 import 'infra/service/custom_server.dart';
 import 'infra/service/middleware_interception.dart';
 
 void main(List<String> arguments) async {
   final di = Injects.initialize();
 
-  var security = SercurityServiceIpml();
-
-  var cascadeHandler = Cascade()
-      .add(di.get<OriginController>().gethandler(
-        middlewares: [
-          security.authorization,
-          security.verifyJWT,
-        ],
-      ))
-      .add(LoginController().gethandler())
+  Handler cascadeHandler = Cascade()
+      .add(di.get<OriginController>().gethandler())
+      .add(LoginController().gethandler(isSecurity: true))
       .handler;
 
   var pipeHandler = Pipeline()

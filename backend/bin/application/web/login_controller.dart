@@ -6,12 +6,13 @@ import '../../infra/security/security_service_ipml.dart';
 class LoginController extends Controller {
   @override
   Handler gethandler({List<Middleware>? middlewares, bool isSecurity = false}) {
-    final router = Router();
+    Router router = Router();
 
     ///login?idUser=3
     router.get('/login', (Request req) async {
       String? idUser = req.url.queryParameters['idUser'];
-      String token = await SercurityServiceIpml().generateJWT(idUser!);
+      String token = await SecurityServiceIpml().generateJWT(idUser!);
+      var result = await SecurityServiceIpml().validateJWT(token);
       print(token);
 
       return Response.ok(token);

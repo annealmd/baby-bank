@@ -4,7 +4,7 @@ import '../../core/custom_env.dart';
 import 'security_service.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
-class SercurityServiceIpml implements SecurityService<JWT> {
+class SecurityServiceIpml implements SecurityService<JWT> {
   @override
   Future<String> generateJWT(String userID) async {
     var jwt = JWT(
@@ -25,13 +25,13 @@ class SercurityServiceIpml implements SecurityService<JWT> {
       String key = await CustomEnv.get(key: 'jwt_key');
       JWTKey secretKey = SecretKey(key);
       return JWT.verify(token, secretKey);
-    } on JWTInvalidError catch (e) {
+    } on JWTInvalidError {
       return null;
-    } on JWTExpiredError catch (e) {
+    } on JWTExpiredError {
       return null;
-    } on JWTNotActiveError catch (e) {
+    } on JWTNotActiveError {
       return null;
-    } on JWTError catch (e) {
+    } on JWTError {
       return null;
     } catch (e) {
       return null;
