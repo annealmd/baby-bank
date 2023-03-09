@@ -1,5 +1,4 @@
-import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-
+import '../application/web/login_controller.dart';
 import '../application/web/origin_controller.dart';
 import '../domain/model/origin_model.dart';
 import '../domain/port/input/service.dart';
@@ -18,6 +17,10 @@ class Injects {
 
     //BD
     di.register<DBConfiguration>(() => MySqlDBConfiguration());
+
+    //Login
+    //Controller
+    di.register<LoginController>(() => LoginController());
 
     //Origin
     //Security

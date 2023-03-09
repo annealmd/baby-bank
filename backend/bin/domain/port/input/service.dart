@@ -1,7 +1,7 @@
 abstract class Service<T> {
-  Future<List<T>> getList(int userId);
+  Future<List<T>> getList({int? idUser});
 
-  Future<bool> addItem(int idUser, T item);
+  Future<bool> addItem({int? idUser, required T item});
 
-  Future<bool> deleteItem(int idUser, int id);
+  Future<bool> deleteItem({int? idUser, required int id});
 }

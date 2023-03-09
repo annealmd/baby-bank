@@ -10,9 +10,10 @@ import 'infra/service/middleware_interception.dart';
 void main(List<String> arguments) async {
   final di = Injects.initialize();
 
+//get or using the call function
   Handler cascadeHandler = Cascade()
       .add(di.get<OriginController>().gethandler())
-      .add(LoginController().gethandler(isSecurity: true))
+      .add(di<LoginController>().gethandler(isSecurity: true))
       .handler;
 
   var pipeHandler = Pipeline()
