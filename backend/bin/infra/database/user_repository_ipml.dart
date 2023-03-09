@@ -2,7 +2,7 @@ import '../../domain/model/user_model.dart';
 import '../../domain/port/output/repository.dart';
 import 'db_configuration.dart';
 
-class UserRepositoryIpml implements Repository {
+class UserRepositoryIpml implements Repository<UserModel> {
   final DBConfiguration _dbCall;
 
   UserRepositoryIpml(this._dbCall);
@@ -19,8 +19,8 @@ class UserRepositoryIpml implements Repository {
   }
 
   @override
-  Future<List> findAll(int? idUser) async {
-    String sql = 'SELECT * FROM tb_user ORDER BY id name';
+  Future<List<UserModel>> findAll(int? idUser) async {
+    String sql = 'SELECT * FROM tb_user ORDER BY name';
     var result = await _dbCall.execQuery(sql);
     List<UserModel> list = [];
     for (var row in result) {

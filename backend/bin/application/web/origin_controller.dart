@@ -18,8 +18,8 @@ class OriginController extends Controller {
     ///origin/list?idUser=3
     router.get('/origin/list', (Request req) async {
       String? idUser = req.url.queryParameters['idUser'];
-      var getList =
-          await _originService.getList(int.parse(idUser!)) as List<OriginModel>;
+      var getList = await _originService.getList(idUser: int.parse(idUser!))
+          as List<OriginModel>;
       var jsonOrigin = getList.map((e) => e.toJson()).toList().toString();
 
       print('Here we are $jsonOrigin');
@@ -31,7 +31,8 @@ class OriginController extends Controller {
       String? idUser = req.url.queryParameters['idUser'];
       String? name = req.url.queryParameters['name'];
       var item = OriginModel()..name = name;
-      bool result = await _originService.addItem(int.parse(idUser!), item);
+      bool result =
+          await _originService.addItem(idUser: int.parse(idUser!), item: item);
       return Response(result ? 200 : 400);
     });
 
@@ -42,8 +43,8 @@ class OriginController extends Controller {
       String? itemId = req.url.queryParameters['itemId'];
       print('------ $idUser ----- $itemId');
       bool result = await _originService.deleteItem(
-        int.parse(idUser!),
-        int.parse(itemId!),
+        idUser: int.parse(idUser!),
+        id: int.parse(itemId!),
       );
       return Response(result ? 200 : 400);
     });

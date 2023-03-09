@@ -2,15 +2,14 @@ import '../model/user_model.dart';
 import '../port/input/service.dart';
 import '../port/output/repository.dart';
 
-class UserServiceIpml implements Service {
+class UserServiceIpml implements Service<UserModel> {
   final Repository<UserModel> _userRepository;
 
   UserServiceIpml(this._userRepository);
 
   @override
-  Future<bool> addItem({int? idUser, required UserModel item}) async {
-    // TODO: implement addItem
-    throw UnimplementedError();
+  Future<bool> addItem({int? idUser, required item}) async {
+    return await _userRepository.create(idUser, item);
   }
 
   @override
