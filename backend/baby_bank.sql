@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `baby_bank`.`tb_user` (
   `name` VARCHAR(30) NOT NULL,
   `surname` VARCHAR(30) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(8) NOT NULL,
+  `password` VARCHAR(64) NOT NULL,
   `dtBirth` DATETIME NOT NULL,
   `dtCreated` DATETIME DEFAULT now(),
   PRIMARY KEY (`id`))
