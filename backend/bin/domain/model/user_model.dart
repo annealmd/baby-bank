@@ -40,9 +40,7 @@ class UserModel {
       map['surname'],
       map['email'],
       map['password'],
-      map['dtBirth'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['dtBirth'])
-          : null,
+      map['dtBirth'] != null ? DateTime.parse(map['dtBirth']) : null,
       map['dtCreate'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['dtCreate'])
           : null,

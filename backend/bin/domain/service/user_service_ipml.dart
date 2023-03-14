@@ -8,7 +8,10 @@ class UserServiceIpml implements Service<UserModel> {
   UserServiceIpml(this._userRepository);
 
   @override
-  Future<bool> addItem({int? idUser, required item}) async {
+  Future<bool> saveItem({int? idUser, required item}) async {
+    if (item.id != null) {
+      return await _userRepository.update(idUser, item);
+    }
     return await _userRepository.create(idUser, item);
   }
 

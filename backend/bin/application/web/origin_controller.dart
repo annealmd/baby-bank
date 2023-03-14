@@ -26,14 +26,17 @@ class OriginController extends Controller {
       return Response.ok(jsonOrigin);
     });
 
-    ///origin/add?idUser=3&name=luciana
+    ///origin/add?idUser=3
     router.post('/origin/add', (Request req) async {
       String? idUser = req.url.queryParameters['idUser'];
-      String? name = req.url.queryParameters['name'];
-      var item = OriginModel()..name = name;
-      bool result =
-          await _originService.addItem(idUser: int.parse(idUser!), item: item);
-      return Response(result ? 200 : 400);
+      var body = await req.readAsString();
+      if (body.isEmpty) {
+        return Response(400);
+      }
+      var origin = OriginModel.fromJson(body);
+      bool result = await _originService.saveItem(
+          idUser: int.parse(idUser!), item: origin);
+      return Response(result ? 201 : 500);
     });
 
     // /origin/del?idUser=3&itemId=21

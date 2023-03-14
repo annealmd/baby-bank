@@ -21,6 +21,17 @@ class UserController extends Controller {
       return Response.ok(jsonOrigin);
     });
 
+    ///user/add
+    router.post('/user/add', (Request req) async {
+      var body = await req.readAsString();
+      if (body.isEmpty) {
+        return Response(400);
+      }
+      var user = UserModel.fromJson(body);
+      var result = await _userService.saveItem(item: user);
+      return Response(result ? 201 : 500);
+    });
+
     return createHandler(
         router: router, isSecurity: isSecurity, middlewares: middlewares);
   }

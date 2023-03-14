@@ -12,7 +12,10 @@ class OriginServiceIpml implements Service<OriginModel> {
   }
 
   @override
-  Future<bool> addItem({int? idUser, required OriginModel item}) async {
+  Future<bool> saveItem({int? idUser, required OriginModel item}) async {
+    if (item.id != null) {
+      return await _originRepository.update(idUser!, item);
+    }
     return await _originRepository.create(idUser!, item);
   }
 

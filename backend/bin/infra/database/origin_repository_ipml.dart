@@ -31,51 +31,16 @@ class OriginRepositoryIpmlDB implements Repository<OriginModel> {
     var result = await _dbCall.execQuery(sql, [idUser, id]);
     return result.affectedRows > 0;
   }
+
+  @override
+  Future<bool> update(int? idUser, OriginModel item) async {
+    final String sql =
+        'UPDATE tb_origin SET name = ? WHERE idUser = ? AND id = ?';
+    var result = await _dbCall.execQuery(sql, [item.name, idUser, item.id]);
+    return result.affectedRows > 0;
+  }
 }
 
-
-
-//  @override
-//   Future<bool> create(value) async {
-//     final String sql =
-//         'INSERT INTO usuarios (nome, email, password) VALUES (?, ?,?)';
-//     var result = await _dbConfiguration
-//         .execQuery(sql, [value.name, value.email, value.password]);
-//     return result.affectedRows > 0;
-//   }
-
-//   @override
-//   Future<bool> delete(int id) async {
-//     final String sql = 'DELETE from usuarios where id = ?';
-//     var result = await _dbConfiguration.execQuery(sql, [id]);
-//     return result.affectedRows > 0;
-//   }
-
-//   @override
-//   Future<List<UserModel>> findAll() async {
-//     //var result = await connection.query('SELECT * FROM usuarios;');
-//     final String sql = 'SELECT * FROM usuarios';
-//     var result = await _dbConfiguration.execQuery(sql);
-//     List<UserModel> _users = result
-//         .map((e) => UserModel.fromMap(e.fields))
-//         .toList()
-//         .cast<UserModel>();
-// //cast for dynamic object
-    // return _users;
-  // }
-
-  // @override
-  // Future<UserModel?> findOne(int id) async {
-  //   final String sql = 'SELECT * FROM usuarios where id = ?';
-  //   var result = await _dbConfiguration.execQuery(sql, [id]);
-  //   return result.length == 0 ? null : UserModel.fromMap(result.first.fields);
-  // }
-
-  // Future<UserModel?> findByEmail(String email) async {
-  //   final String sql = 'SELECT * FROM usuarios where email = ?';
-  //   var result = await _dbConfiguration.execQuery(sql, [email]);
-  //   return result.length == 0 ? null : UserModel.fromEmail(result.first.fields);
-  // }
 
   // @override
   // Future<bool> update(value) async {

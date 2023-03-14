@@ -8,8 +8,16 @@ class UserRepositoryIpml implements Repository<UserModel> {
   UserRepositoryIpml(this._dbCall);
   @override
   Future<bool> create(int? idUser, item) async {
-    // TODO: implement create
-    throw UnimplementedError();
+    final String sql =
+        'INSERT INTO tb_user (name, surname, email, password, dtBirth) VALUES (?,?,?,?,?)';
+    var result = await _dbCall.execQuery(sql, [
+      item.name,
+      item.surname,
+      item.email,
+      item.password,
+      (item.dtBirth).toString()
+    ]);
+    return result.affectedRows > 0;
   }
 
   @override
@@ -38,5 +46,15 @@ class UserRepositoryIpml implements Repository<UserModel> {
       );
     }
     return list;
+  }
+
+  @override
+  Future<bool> update(int? idUser, UserModel item) async {
+    print('checando ****${item.toString()}');
+    final String sql =
+        'UPDATE tb_user SET email = ?, password = ? WHERE  id = ?';
+    var result =
+        await _dbCall.execQuery(sql, [item.email, item.password, item.id]);
+    return result.affectedRows > 0;
   }
 }
