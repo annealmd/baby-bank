@@ -35,7 +35,7 @@ class UserModel {
 
   factory UserModel.fromMap(Map map) {
     return UserModel.create(
-      map['id']?.toInt() ?? 0,
+      map['id']?.toInt(),
       map['name'],
       map['surname'],
       map['email'],
